@@ -1,16 +1,75 @@
-import stats
-import math
-# Char_Sheet
-# Phase 1
-# Alec Huynh
-# 9/10/20
-# Creating Basic Functions for calculations
 
-# CHARACTER STATS
+# Digital Character Sheet Challenge
+# Ground Level - Level 0
+# Alec Huynh
+
+#Challenge Deadline: January 1st, 2021. 
+
+
+# Goal:
+# The goal of the Level 0 Digital Character Sheet program is to lay the groundwork for the basic math and 
+# organization of code for future levels. This will run in the command prompt. In the future this may be 
+# run in the terminal. However, the terminal program may also be in level 1. 
+
+# List of edits:
+# 0.1 9/10/2020
+# 0.2 9/13/2020
+"""
+Log 0.2
+Added basic game loop and command options for groundlevel text based system. Revamped character class to accomodate this. 
+    Will need to add AC attribute to Character class
+Began adding spell class and spell dictionary. 
+    Will need to create spell list command options
+
+Features to keep in mind
+ - Inventory
+    + Consumables
+ - Character Features
+ - Class Features
+ - Spell Slots
+ - EXP/Level Up
+ - HP Bar
+ - Using a .txt file which the program saves to and reads from for data (allows for easy editing of character)
+
+
+Going forward
+ - AC attribute to Character Class
+ - Broaden spell list to include level 1 and level 2 spells
+ - Add spell list command functionality to game loop
+ - Begin investigating low level game options
+    + ex. being able to select listed text options with a cursor controlled by arrow keys
+
+
+"""
+
+# Import Libraries
+import stats # Local library must be in same directory. 
+import math
+from random import randint
+
+
+# Start Up
+# =========================
+
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()
+
+
+
+# CHARACTER 9/13/20
 # ==================================
 # Note: 
-# Edit here to make changes to character stats for now
+# Edit here to make changes to the character for now
 # For saves and ability checks 1 = proficiency
+
+
+Name = "Lentil the Grand Wizard"
+HP_max = 50
+HP_current = HP_max
+
 
 #Proficiency Modifier
 Prof_Mod = 2
@@ -56,9 +115,80 @@ char_stats = [STR, DEX, CON, INT, WIS, CHA]
 
 #print(char_stats)
 
-# END CHARACTER STATS
+# END CHARACTER
 # =================================
 
+
+# SPELL LIST
+# =================================
+# Note: 
+# Edit Spell Lists here from now on 
+# Consider extracting method and setting this as a new function, that way it only loads 
+# the spell book when it's needed and not holding all the memory constantly
+
+
+Spells = {
+
+
+
+# Cantrips
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+"Firebolt" : stats.Spells("Firebolt", \
+                        0,\
+                       "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried.", \
+                       randint(1,10)) #1d10
+                        
+                       
+
+# 1
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+# 2
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+# 3
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+# 4
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+# 5
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+# 6
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+# 7
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+# 8
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+# 9
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+}
+# END SPELL LIST
+# =================================
 
 # Calculating Stats!
 # ==================================
@@ -123,29 +253,49 @@ while i < len(STAT_LIST):
 
 
 # Print to make sure everything is gucci
-for obj in STAT_LIST:
-    print(obj.name, end =" ") 
-    print(obj.stat, end =" ")
-    print(obj.roll)
+#for obj in STAT_LIST:
+#    print(obj.name, end =" ") 
+#    print(obj.stat, end =" ")
+#    print(obj.roll)
+
+#print(STAT_LIST[0].roll["Athletics"])
 
 
 
-
-"""
-Note: 9/10/20
-So far, all of the mat for the ability scores have been determined. 
-We will not be including any level up capabilities in the near future
-Next goals:
-Add game loop with next functionality:
-
-
-"""
+# Commands for Text Based Character Sheet
+Commands = {
+    'quit' : stats.Player.stop,
+    'damage' : stats.Player.take_damage,
+    'heal' : stats.Player.heal_damage,
+    #'status' : stats.Player.status
+    }
 
 
+# Game Loop
+# ======================
 
+# Instantiating Player as object
+p = stats.Player("Lentil", 50, 50, True)
+p.name = Name
+p.health_max = HP_max
+p.health = HP_current
 
+#Spells["Firebolt"].cast_spell()
 
-
+while(p.quit):
+    p.status() # Always describe player status
+    line = input("> ")
+    args = line.split() # Extracts each individual word (or string of text separated by space)
+    if len(args) > 0: # If you entered anything...
+        commandFound = False 
+        for c in Commands.keys(): # Scroll through every Key
+            if args[0] == c[: len(args[0])]: # If first argument is the same as the [I have no clue]
+                #print("Command understood! Beginning Command.")
+                #print(Commands[c])
+                Commands[c](p) # Run the list according to the instatiated object p (stat.Player)
+                commandFound = True
+        if not commandFound:
+            print("Command not found.")
 
 
 
