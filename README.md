@@ -1,7 +1,7 @@
 # Digital-Character-Sheet-WIP
 Challenge with my friend on who can make the coolest DnD character sheet. Should be in JRPG fashion
 
-0.~ Functionality
+0.0.~ Functionality
 
   Ground level functionality with basic classes, functions, and dictionaries.
   
@@ -18,3 +18,7 @@ Challenge with my friend on who can make the coolest DnD character sheet. Should
     + Inventory*
     
     + Terminal functionality - actual program outside of command prompt*
+
+0.1.~ Functionality
+
+  Using Pygame to create an external program. Should retain same math and dictionary features as past versions. 
